@@ -1,11 +1,11 @@
-import TodoLayout from "./components/Todo";
-
+import React from 'react';
+import TodoLayout from './components/Todo';
 
 
 function App() {
   return (
     <div className="App">
-      <TodoLayout/> 
+      <TodoLayout/>
     </div>
   );
 }
