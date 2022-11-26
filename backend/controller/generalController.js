@@ -19,7 +19,14 @@ const updateData = async (req, res) => {
     res.status(200).json({ message: 'Update Item' })
 }
 const deleteData = async (req, res) => {
-    res.status(200).json({ message: 'Delete Item' })
+    const data = await ItemModel.findById(req.params.id)
+    if (!data) {
+        res.status(400);
+        throw new Error('Data not found')
+    }
+
+    await data.remove()
+    res.status(200).json({ id: req.params.id })
 }
 
 
