@@ -17,22 +17,26 @@ const TodoLayout = () => {
         e.preventDefault()
         try {
             const res = await axios.post('http://localhost:5000/api/data', { text: data })
+            setListItems( [...listItems , res.data])
             setData("")
         } catch (err) {
             console.log(err)
         }
-    }
-    const getItem = async () => {
-        try{
-            const res = await axios.get('http://localhost:5000/api/data')
-            setListItems(res.data)
-
-        }catch(error){
-            console.log(error)
+    }   
+     useEffect(() => {
+        const getItem = async () => {
+            try{
+                const res = await axios.get('http://localhost:5000/api/data')
+                setListItems(res.data)
+            }catch(error){
+                console.log(error)
+            }
         }
-    }
-    const { id } = useParams();
-    const deleteItem = async(id:any) => {
+        getItem();
+       
+    },[ isUpdating , data , updatedText])
+    
+    const deleteItem = async(id:string) => {
         try{
             const res = await axios.delete(`http://localhost:5000/api/data/${id}`)
             const deleteItemList = listItems.filter(item => item._id !== id)
@@ -41,20 +45,21 @@ const TodoLayout = () => {
             console.log(error)
         }
     }
-    const updateItem = async(e:any) => {
+
+    const updateItem = async(id:string , e:any) => {
         e.preventDefault();
         try{
             const res = await axios.put(`http://localhost:5000/api/data/${id}` , {text:updatedText})
             const updatedItemIndex = listItems.findIndex(item => item._id === isUpdating);
             const updatedItem = listItems[updatedItemIndex].item = updatedText;
+            setUpdatedText("");
+            setIsUpdating("");
+
         }catch(error){
             console.log(error)
         }
     }
-    useEffect(() => {
-        getItem();
-        console.log(listItems)
-    },[data])
+
 
     return (
         <div className="h-screen bg-black bg-opacity-30">
@@ -102,7 +107,7 @@ const TodoLayout = () => {
                             <div className="space-x-5 space-y-2">
                           
                              {isUpdating === item._id ?                       
-                             <form className='flex text-center' onSubmit={(e) => updateItem(e)}> 
+                             <form className='flex text-center' onSubmit={(e) => updateItem(item._id , e)}> 
                              <input
                                 type="text"
                                 value={updatedText}
