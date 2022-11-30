@@ -1,16 +1,22 @@
 const userModel = require('../models/userModels')
 
 const getUserData = async (req, res) => {
-    res.json({ message: 'Get User' })
+    const getUserList = await userModel.find()
+    res.status(200).json(getUserList)
 }
 const registerUser = async (req, res) => {
-    const { userName, email, password } = req.body;
+    const { username, email, password } = req.body;
 
-    if (!userName || !email || !password) {
+    if (!username || !email || !password) {
         res.status(400);
         throw new Error('Please complete the input field')
     }
-    res.status(200).json({ message: 'Sucessfully Register the user' })
+    const createUser = userModel.create({
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password
+    })
+    res.status(200).json(createUser)
 }
 
 module.exports = {
