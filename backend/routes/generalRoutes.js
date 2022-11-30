@@ -1,10 +1,10 @@
 const router = require('express').Router();
 const { getData, addData, updateData, deleteData } = require('../controller/generalController');
 
-router.get('/api/data', getData)
-router.post('/api/data', addData)
-router.put('/api/data/:id', updateData)
-router.delete('/api/data/:id', deleteData)
+router.get('/', getData)
+router.post('/', addData)
+router.put('/:id', updateData)
+router.delete('/:id', deleteData)
 
 
 

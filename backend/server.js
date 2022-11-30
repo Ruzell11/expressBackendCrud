@@ -19,12 +19,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // import controller
-const generalRoutes = require('./routes/generalRoutes')
+
 
 //use cors
 app.use(cors())
 //import routes
-app.use('/', generalRoutes);
+app.use('/api/data', require('./routes/generalRoutes'));
+app.use('/api/users', require('./routes/userRoutes'))
 
 //errorhandler
 app.use(errorHandler)
