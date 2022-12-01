@@ -1,9 +1,11 @@
 const ItemModel = require('../models/generalModels')
 
+
 const getData = async (req, res) => {
     const getItem = await ItemModel.find()
     res.status(200).json(getItem)
 }
+
 const addData = async (req, res) => {
     if (!req.body.text) {
         res.status(400)
