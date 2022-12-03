@@ -9,7 +9,7 @@ const getData = async (req, res) => {
 const addData = async (req, res) => {
     if (!req.body.text) {
         res.status(400)
-        throw new Error('Please add a text on input field')
+        res.send({ message: 'Please add a text on input field' })
     }
     const setData = ItemModel.create({
         text: req.body.text
@@ -21,7 +21,7 @@ const updateData = async (req, res) => {
     const data = await ItemModel.findById(req.params.id)
     if (!data) {
         res.status(400)
-        throw new Error('Data not found')
+        res.send({ message: 'Data not found' })
     }
 
     const updatedGoal = await ItemModel.findByIdAndUpdate(req.params.id, req.body, {
@@ -33,7 +33,7 @@ const deleteData = async (req, res) => {
     const data = await ItemModel.findById(req.params.id)
     if (!data) {
         res.status(400);
-        throw new Error('Data not found')
+        res.send({ message: 'Data not found' })
     }
 
     await data.remove()

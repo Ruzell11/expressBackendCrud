@@ -18,7 +18,7 @@ const SignUpPage = () => {
                email: emailRef.current?.value,
                password:passwordRef.current?.value
             })
-           if(res.status === 200){
+           if(res.status === 201){
             navigate('/todo-app')
            }
            return;

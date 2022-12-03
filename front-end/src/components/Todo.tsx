@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from 'axios';
-import {useParams} from 'react-router-dom';
+import {useParams } from 'react-router-dom';
 
 interface ItemsData {
     text:string;
     _id:string;
 }
 const TodoLayout = () => {
-    const [data, setData] = useState<string >();
+    const data = useRef<HTMLInputElement>(null)
     const [listItems , setListItems] = useState<any[]>([]);
     const [isUpdating , setIsUpdating] = useState<string>('');
     const [updatedText , setUpdatedText] = useState<string>();
@@ -16,9 +16,9 @@ const TodoLayout = () => {
     const addItem = async (e:any) => {
         e.preventDefault()
         try {
-            const res = await axios.post('http://localhost:5000/api/data', { text: data })
+            const res = await axios.post('http://localhost:5000/api/data', { text: data.current?.value })
+            
             setListItems( [...listItems , res.data])
-            setData("")
         } catch (err) {
             console.log(err)
         }
@@ -34,7 +34,7 @@ const TodoLayout = () => {
         }
         getItem();
        
-    },[ isUpdating , data , updatedText])
+    },[ isUpdating , data.current?.value , updatedText])
     
     const deleteItem = async(id:string) => {
         try{
@@ -72,8 +72,7 @@ const TodoLayout = () => {
                         <form className='flex text-center' onSubmit={(e) => addItem(e)}>
                         <input
                                 type="text"
-                                value={data}
-                                onChange={e => { setData(e.target.value) }}
+                                ref={data}
                                 className=" mx-3
                                 
         form-control
