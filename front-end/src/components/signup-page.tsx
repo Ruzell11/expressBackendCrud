@@ -30,22 +30,21 @@ const SignUpPage = () => {
         <>
             <div className="flex justify-center h-screen w-screen items-center ">
                 <div className="w-full md:w-1/2 flex flex-col items-center " >
-
+                <div className="w-full md:w-1/2 flex flex-col items-center " >
                     <h1 className="text-center text-2xl font-bold text-gray-600 mb-6">Sign Up</h1>
-
                    <form onSubmit={(e) => registerUser(e)} >
                 
                        <div className="space-y-2">
-                       <input type="email" name="email"  id="email" ref={emailRef} className="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 outline-blue-500"
+                       <input type="email" name="email"  id="email" ref={emailRef} className="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded "
                             placeholder="Email" />
                   
                  
-                        <input type="text" name="text" id="text" ref={usernameRef} className="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 outline-blue-500"
+                        <input type="text" name="text" id="text" ref={usernameRef} className="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded "
                             placeholder="User Name" />
              
 
                 
-                        <input type="password" name="password" id="password" ref={passwordRef} className="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 outline-blue-500 "
+                        <input type="password" name="password" id="password" ref={passwordRef} className="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 "
                             placeholder="Password" />
                         <div className=" flex flex-row justify-between p-3">
                         <div className=" flex items-center gap-x-1">
@@ -53,17 +52,18 @@ const SignUpPage = () => {
                             <label className="text-sm text-slate-400">Remember me</label>
                         </div>
                         <div>
-                            <Link to="/" className="text-sm text-slate-400 hover:text-blue-500">Already have an account?</Link>
+                            <Link to="/" className="text-sm text-slate-400 hover:text-gray-500">Already have an account?</Link>
                         </div>
                     </div>
 
                     <div className="">
-                        <button type="submit" className="py-4 bg-blue-400 w-full rounded text-blue-50 font-bold hover:bg-blue-700"> LOGIN</button>
+                        <button type="submit" className="py-4 bg-black w-full rounded text-blue-50 font-bold hover:bg-gray-500"> LOGIN</button>
                     </div>
                        </div>
 
                    
                    </form>
+                   </div>
                 </div>
             </div>
         </>
