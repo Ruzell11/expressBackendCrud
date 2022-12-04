@@ -4,9 +4,15 @@ const bcrypt = require('bcryptjs')
 
 //  /api/users/me
 // get user data
+//Private
 const getUserData = async (req, res) => {
-    const getUserList = await UserModel.find()
-    res.status(200).json(getUserList)
+    const { _id, username, email } = await UserModel.findById(req.user.id)
+    const getUserList = await UserModel.find(req.token)
+    res.status(200).json({
+        id: _id,
+        username: username,
+        email: email
+    })
 }
 
 //  /api/users/register
@@ -56,14 +62,19 @@ const registerUser = async (req, res) => {
 //  /api/users/login
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
-    const findUser = await UserModel.findOne({ email })
+    const user = await UserModel.findOne({ email })
 
-    if (findUser && (await bcrypt.compare(password, findUser.password))) {
-        res.status(200).json({ message: 'Sucessfully Login' })
+    if (await user && (await bcrypt.compare(password, user.password))) {
+        res.status(200).json({
+            message: 'Sucessfully Login',
+            _id: user.id,
+            username: user.username,
+            email: user.email,
+            token: generateToken(user._id),
+        })
     } else {
         res.status(400)
         res.send({ message: 'Invalid Credentials' })
-
     }
 }
 

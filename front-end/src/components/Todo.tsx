@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from 'axios';
-import {useParams } from 'react-router-dom';
 
 interface ItemsData {
     text:string;
@@ -17,8 +16,8 @@ const TodoLayout = () => {
         e.preventDefault()
         try {
             const res = await axios.post('http://localhost:5000/api/data', { text: data.current?.value })
-            
-            setListItems( [...listItems , res.data])
+            setListItems(listItems => [...listItems , res.data])
+            e.target.reset()
         } catch (err) {
             console.log(err)
         }
@@ -34,7 +33,7 @@ const TodoLayout = () => {
         }
         getItem();
        
-    },[ isUpdating , data.current?.value , updatedText])
+    },[ ])
     
     const deleteItem = async(id:string) => {
         try{

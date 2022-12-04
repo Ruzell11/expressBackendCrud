@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const { registerUser, getUserData, loginUser } = require('../controller/userController');
+const { protect } = require('../middleware/authMiddleware');
 
-router.get('/me', getUserData)
+router.get('/me', protect, getUserData)
 router.post('/register', registerUser)
 router.post('/login', loginUser)
 // router.put('/api/data/:id', )

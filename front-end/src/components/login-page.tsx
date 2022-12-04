@@ -16,11 +16,9 @@ const LoginPage = () => {
             const res = await axios.post('http://localhost:5000/api/users/login' , {
                 email:emailRef.current?.value,
                 password:passwordRef.current?.value,
+                
         })
-        console.log(res.data)
-        console.log(res.headers)
-        console.log(res.request)
-        console.log(res.statusText)
+
         if(res.status === 200){
             navigate('/todo-app')    
         }

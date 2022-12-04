@@ -11,7 +11,7 @@ const addData = async (req, res) => {
         res.status(400)
         res.send({ message: 'Please add a text on input field' })
     }
-    const setData = ItemModel.create({
+    const setData = await ItemModel.create({
         text: req.body.text
     })
     res.status(200).json(setData)
